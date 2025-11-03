@@ -1,6 +1,6 @@
 <h1>ExpNo 2 : Implement Depth First Search Traversal of a Graph</h1> 
-<h3>Name: </h3>
-<h3>Register Number:     </h3>
+<h3>Name: HARSHITHA V </h3>
+<h3>Register Number:  212223230074   </h3>
 <H3>Aim:</H3>
 <p> To Implement Depth First Search Traversal of a Graph using Python 3.</p>
 <h3>Theory:</h3>
@@ -87,6 +87,85 @@ F H <BR>
 <h3>Sample Output</h3>
 <hr>
 ['0', '1', '2', '3', '4']
+
+<h3>program</h3>
+
+```
+from collections import defaultdict
+
+def dfs(graph, node, visited, path):
+    
+    visited[node] = True
+    path.append(node)
+    for neighbor in sorted(graph[node]): 
+        if not visited[neighbor]:
+            dfs(graph, neighbor, visited, path)
+    return path
+
+def solve_dfs_traversal(data_lines):
+    """Parses input data and executes the DFS function."""
+    
+    data_iter = iter(data_lines)
+    try:
+        v, e = map(int, next(data_iter).split())
+    except StopIteration:
+        print("Error: Missing V and E line.")
+        return
+
+    graph = defaultdict(list)
+    for _ in range(e):
+        try:
+            u, v = next(data_iter).split()
+            graph[u].append(v)
+            graph[v].append(u)
+        except StopIteration:
+            print(f"Error: Expected {e} edges, but stopped at edge {_}.")
+            return
+        
+    try:
+        start = next(data_iter).strip()
+    except StopIteration:
+        try:
+            start = next(data_iter).strip()
+        except StopIteration:
+            print("Error: Missing start node.")
+            return
+
+    visited = defaultdict(bool)
+    path = []
+    
+    traversedpath = dfs(graph, start, visited, path)
+    return traversedpath
+
+sample_input_1 = [
+    "8 9",
+    "A B",
+    "A C",
+    "B E",
+    "C D",
+    "B D",
+    "C G",
+    "D F",
+    "G F",
+    "F H",
+    "A" 
+]
+print(solve_dfs_traversal(sample_input_1))
+sample_input_2 = [
+    "5 5",
+    "0 1",
+    "0 2",
+    "0 3",
+    "2 3",
+    "2 4",
+    "0"
+]
+print(solve_dfs_traversal(sample_input_2))
+```
+
+<h3>Output</h3>
+
+<img width="388" height="53" alt="image" src="https://github.com/user-attachments/assets/f5d2707c-abdb-4fac-847c-44a2f4373fb9" />
 
 <hr>
 <h3>Result:</h3>
